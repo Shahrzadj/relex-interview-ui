@@ -17,7 +17,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 
 import { AppComponent } from './app.component';
-
+import {SelectButtonModule} from 'primeng/selectbutton';
 @NgModule({
     declarations: [
         AppComponent
@@ -37,7 +37,8 @@ import { AppComponent } from './app.component';
         InputTextareaModule,
         RadioButtonModule,
         DropdownModule,
-        ButtonModule
+        ButtonModule,
+        SelectButtonModule
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]

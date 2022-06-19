@@ -4,6 +4,6 @@ export interface Order{
     productName?:string;
     batchCode?:string;
     batchSize?:number;
-    numberOfBatch?:number;
+    numberOfBatches?:number;
     productPrice?:string;
 }
