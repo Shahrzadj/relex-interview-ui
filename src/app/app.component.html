@@ -1,14 +1,10 @@
-<p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
-    </ng-template>
-</p-toolbar>
 <p-table #dt [value]="orders" [rows]="10" [paginator]="true" [globalFilterFields]="['productCode','productName','batchCode','batchSize','numberOfBatches','productPrice']"
     [(selection)]="selectedOrders" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
-            <h5 class="p-m-0">Manage Orders</h5>
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
@@ -16,10 +12,7 @@
         </div>
     </ng-template>
     <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 3rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+        <tr>      
             <th pSortableColumn="productCode">Product Code <p-sortIcon field="productCode"></p-sortIcon></th>
             <th pSortableColumn="productName">Product Name <p-sortIcon field="productName"></p-sortIcon></th>
             <th pSortableColumn="batchCode">Batch Size Code <p-sortIcon field="batchCode"></p-sortIcon></th>
@@ -31,9 +24,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-order>
         <tr>
-            <td>
-                <p-tableCheckbox [value]="order"></p-tableCheckbox>
-            </td>
             <td>{{order.productCode}}</td>
             <td>{{order.productName}}</td>
             <td>{{order.batchCode}}</td>
@@ -41,7 +31,7 @@
             <td>{{order.numberOfBatches}}</td>
             <td>{{order.productPrice}}</td>
             <td>
-               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteOrder(order)"></button>
+               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteOrder(order)"></button>
             </td>
         </tr>
     </ng-template>
@@ -61,7 +51,7 @@
                     <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
                 </ng-template>
             </p-dropdown>
-        <small class="p-error" *ngIf="submitted && !value">Product is required.</small>
+        <small class="p-error" *ngIf="submitted && !selectedProduct">Product is required.</small>
         </div>  
         <div class="p-field">
             <label for="ProductBatchSize">Select Batch Size for this product</label>

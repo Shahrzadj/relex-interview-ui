@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
     openNew() {
         this.order={};
         this.product = {};
+        this.orderDto={};
         this.submitted = false;
         this.orderDialog = true;
     }
