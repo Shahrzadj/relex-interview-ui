@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
     deleteOrder(order: Order) {
         console.log(order);
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete this item?',
+            message: 'Are you sure you want to delete this order?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
@@ -72,4 +72,5 @@ export class AppComponent implements OnInit {
         this.orderDialog = false;
         this.submitted = false;
     }
+  
 }

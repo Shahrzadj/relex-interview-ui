@@ -11,13 +11,12 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 import { AppComponent } from './app.component';
-import {SelectButtonModule} from 'primeng/selectbutton';
+
 @NgModule({
     declarations: [
         AppComponent
@@ -32,10 +31,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
         DialogModule,
         ToolbarModule,
         ConfirmDialogModule,
-        RatingModule,
         InputNumberModule,
         InputTextareaModule,
-        RadioButtonModule,
         DropdownModule,
         ButtonModule,
         SelectButtonModule
