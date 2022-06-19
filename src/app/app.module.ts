@@ -14,8 +14,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 import {SelectButtonModule} from 'primeng/selectbutton';
-
-import { AppComponent } from './app.component';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';import { AppComponent } from './app.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,10 @@ import { AppComponent } from './app.component';
         InputTextareaModule,
         DropdownModule,
         ButtonModule,
-        SelectButtonModule
+        SelectButtonModule,
+        MessagesModule,
+        MessageModule,
+        ToastModule
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]

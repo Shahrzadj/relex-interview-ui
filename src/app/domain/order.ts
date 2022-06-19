@@ -7,3 +7,8 @@ export interface Order{
     numberOfBatches?:number;
     productPrice?:string;
 }
+export interface OrderDto{
+    productId?:number;
+    numberOfBatches?:number;
+    isBatchMaxSize?:boolean;
+}

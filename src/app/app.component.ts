@@ -3,7 +3,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from './domain/product';
 import { ProductService } from './services/productservice';
 import { OrderService } from './services/orderService';
-import { Order } from './domain/order';
+import { Order, OrderDto } from './domain/order';
 
 @Component({
     selector: 'app-root',
@@ -15,12 +15,16 @@ export class AppComponent implements OnInit {
     orderDialog: boolean;
     products: Product[];
     orders:Order[];
+    orderDto:OrderDto;
     product: Product;
     order:Order;
     selectedOrders:Order[];
     submitted: boolean;
     availableProducts:any[];
     batchSizeOptions: any[];
+    numberOfBatches:number=1;
+    selectedProduct:any;
+    batchSize:boolean=true;
     constructor(private productService: ProductService,private orderService: OrderService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
@@ -32,7 +36,7 @@ export class AppComponent implements OnInit {
                 return {label: d.name, value: d.id};
             })
         )
-        this.batchSizeOptions = [{label: 'Max', value: 'true'}, {label: 'Min', value: 'false'}];
+        this.batchSizeOptions = [{label: 'Max', value: true}, {label: 'Min', value: false}];
     }
 
     openNew() {
@@ -42,18 +46,6 @@ export class AppComponent implements OnInit {
         this.orderDialog = true;
     }
 
-    deleteSelectedOrders() {
-        this.confirmationService.confirm({
-            message: 'Are you sure you want to delete the selected orders?',
-            header: 'Confirm',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.orders = this.orders.filter(val => !this.selectedOrders.includes(val));
-                this.selectedOrders = null;
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
-            }
-        });
-    }
     deleteOrder(order: Order) {
         console.log(order);
         this.confirmationService.confirm({
@@ -61,16 +53,40 @@ export class AppComponent implements OnInit {
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.orders = this.orders.filter(val => val.id !== order.id);
+                this.orderService.deleteOrder(order.id).subscribe(response=>{
+                    this.orders = this.orders.filter( item => item.id !== response.id )
+                });
                 this.order = {};
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Order Deleted', life: 3000});
-            }
+                this.messageService.add({key: 'bc', severity:'success', summary: 'Success', detail: 'Order Deleted Successfully!'});            }
         });
+    }
+
+    CreateOrder() {
+        this.submitted = true;
+        if(this.selectedProduct){
+            this.orderDto.productId=this.selectedProduct;
+            this.orderDto.numberOfBatches=this.numberOfBatches;
+            this.orderDto.isBatchMaxSize=this.batchSize;
+            this.orderService.createNewOrder(this.orderDto).subscribe(response => {
+                this.orders = [ ...this.orders, { id: response.id,
+                            productCode: response.product.code,
+                            productName:response.product.name,
+                            batchCode:response.batch.code,
+                            batchSize:response.batchSize,
+                            numberOfBatches:response.numberOfBatches,
+                            productPrice:response.product.price } ]; 
+            });
+            
+        }     
+        this.messageService.add({key: 'bc', severity:'success', summary: 'Success', detail: 'Order Created Successfully!'}); 
+        this.orderDialog = false;
+        this.selectedProduct = {};
+        this.numberOfBatches=0;
+        this.batchSize=true;
     }
 
     hideDialog() {
         this.orderDialog = false;
         this.submitted = false;
     }
-  
 }

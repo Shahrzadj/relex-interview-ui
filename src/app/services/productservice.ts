@@ -11,7 +11,6 @@ export class ProductService {
     constructor(private http: HttpClient) { }
 
     getProducts() {
-        console.log(environment.apiUrl)
         return this.http.get<Product[]>(`${environment.apiUrl}/api/Products`);
     }
 }
