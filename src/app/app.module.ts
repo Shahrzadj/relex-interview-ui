@@ -18,7 +18,8 @@ import { ToastModule } from 'primeng/toast';import { AppComponent } from './app.
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+
     ],
     imports: [
         BrowserModule,

@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
                             productCode: response.product.code,
                             productName:response.product.name,
                             batchCode:response.batch.code,
-                            batchSize:response.batchSize,
+                            batchSize:response.batch.size,
                             numberOfBatches:response.numberOfBatches,
                             productPrice:response.product.price } ]; 
             });
