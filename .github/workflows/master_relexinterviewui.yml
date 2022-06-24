@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_8f2a53cfa1414a0d991cf486a448a755 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_474620641f554731a4e1335240c111b1 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_2a3bdef7f78b465e81ec903c163182aa }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_b47b67f1112b415ab25d1ea031514cee }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8f2a53cfa1414a0d991cf486a448a755 }}/relex-interview-ui:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2a3bdef7f78b465e81ec903c163182aa }}/relex-interview-ui:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'relexinterviewui'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f06a7d0d609040b89a8310393bbf1a5b }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_8f2a53cfa1414a0d991cf486a448a755 }}/relex-interview-ui:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_2eeedc70ffad447c9b08688ff89847d5 }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2a3bdef7f78b465e81ec903c163182aa }}/relex-interview-ui:${{ github.sha }}'
