@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2f986a45510143c6aba8bd50b64de326 }}/shahrzadj1993/relex-interview-ui:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2f986a45510143c6aba8bd50b64de326 }}/relex-interview-ui:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
