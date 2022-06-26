@@ -15,7 +15,6 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';import { AppComponent } from './app.component';
-
 @NgModule({
     declarations: [
         AppComponent,

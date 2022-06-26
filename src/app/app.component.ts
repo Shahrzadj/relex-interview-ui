@@ -28,9 +28,7 @@ export class AppComponent implements OnInit {
     constructor(private productService: ProductService,private orderService: OrderService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
     ngOnInit() {
-        this.orderService.getOrders().subscribe(
-            data => this.orders=data
-        );
+        this.getOrders();
         this.productService.getProducts().subscribe(
             data=>this.availableProducts= data.map(d => {
                 return {label: d.name, value: d.id};
@@ -38,7 +36,11 @@ export class AppComponent implements OnInit {
         )
         this.batchSizeOptions = [{label: 'Max', value: true}, {label: 'Min', value: false}];
     }
-
+    getOrders(){
+        this.orderService.getOrders().subscribe(
+            data => this.orders=data
+        );
+    }
     openNew() {
         this.order={};
         this.product = {};
@@ -48,7 +50,6 @@ export class AppComponent implements OnInit {
     }
 
     deleteOrder(order: Order) {
-        console.log(order);
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete this order?',
             header: 'Confirm',
@@ -69,20 +70,14 @@ export class AppComponent implements OnInit {
             this.orderDto.numberOfBatches=this.numberOfBatches;
             this.orderDto.isBatchMaxSize=this.batchSize;
             this.orderService.createNewOrder(this.orderDto).subscribe(response => {
-                this.orders = [ ...this.orders, { id: response.id,
-                            productCode: response.product.code,
-                            productName:response.product.name,
-                            batchCode:response.batch.code,
-                            batchSize:response.batch.size,
-                            numberOfBatches:response.numberOfBatches,
-                            productPrice:response.product.price } ]; 
+               this.getOrders();
             });
             
         }     
         this.messageService.add({key: 'bc', severity:'success', summary: 'Success', detail: 'Order Created Successfully!'}); 
         this.orderDialog = false;
         this.selectedProduct = {};
-        this.numberOfBatches=0;
+        this.numberOfBatches=1;
         this.batchSize=true;
     }
 
